@@ -33,8 +33,10 @@ class MessagesContainer extends React.Component {
                 <MessagesList messages={this.props.messages}/>
                 <AddMessage
                     text={this.state.messageText}
+                    userName={this.props.author}
                     changeMessage={this.changeMessage}
-                    addMessage={this.addMessage}/>
+                    addMessage={this.addMessage}
+                />
             </section>
         );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-const AddMessage = ({text, changeMessage, addMessage}) => {
+const AddMessage = ({text, userName, changeMessage, addMessage}) => {
 
     return (<input
         id="new-message"
@@ -10,13 +10,14 @@ const AddMessage = ({text, changeMessage, addMessage}) => {
             }
         }}
         type="text"
-        placeholder="New message"
+        placeholder={`New message from ${userName}`}
         onChange={changeMessage}
         value={text}/>);
 };
 
 AddMessage.propTypes = {
     text: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
     changeMessage: PropTypes.func.isRequired,
     addMessage: PropTypes.func.isRequired
 };

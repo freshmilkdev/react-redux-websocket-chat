@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-
+import Socket from './sockets';
 import configStore from './store/config';
+import { addUser } from './actions/users';
+import userName from './utils/name';
 
-const store = configStore();
-//TODO: apply thunks stuff
+let socket = new Socket('ws://localhost:1337', userName);
+
+const store = configStore(socket.getSocketInstance(), userName);
+store.dispatch(addUser(userName));
+
+socket.setEventListeners(store.dispatch);
+
 ReactDOM.render(
     <Provider store={store}>
         <App />

@@ -1,9 +1,10 @@
 import * as types from './actionTypes';
 
 export const addUser = (name) => {
-    return (dispatch) => {
+    return (dispatch, getState, socket) => {
         dispatch(addUserSuccess(name));
         dispatch(setUserSuccess(name));
+        return Promise.resolve();
     };
 };
 export const addUserSuccess = name => ({

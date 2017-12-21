@@ -1,11 +1,13 @@
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from '../reducers';
+import initialState from './initialState';
 import thunk from 'redux-thunk';
 
-const store = () => {
+const store = (socket) => {
     return createStore(
         rootReducer,
-        applyMiddleware(thunk)
+        initialState,
+        applyMiddleware(thunk.withExtraArgument(socket))
     );
 };
 export default store;

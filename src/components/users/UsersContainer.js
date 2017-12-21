@@ -9,10 +9,6 @@ class UsersContainer extends React.Component {
         super(props, context);
     }
 
-    componentWillMount() {
-        this.props.actions.addUser((+new Date()).toString());
-    }
-
     render() {
         return (
             <UserList users={this.props.users}/>
