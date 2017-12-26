@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import './index.css';
+//import ErrorBoundary from './helpers/ErrorBoundary';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import Socket from './sockets';
-import configStore from './store/config';
-import { addUser } from './actions/users';
+import configStore from './store';
+
 import userName from './utils/name';
 
 let socket = new Socket('ws://localhost:1337', userName);
 
 const store = configStore(socket.getSocketInstance(), userName);
-store.dispatch(addUser(userName));
 
 socket.setEventListeners(store.dispatch);
 

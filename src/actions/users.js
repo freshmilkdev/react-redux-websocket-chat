@@ -1,18 +1,21 @@
 import * as types from './actionTypes';
 
-export const addUser = (name) => {
+export const handleNewUser = (name) => {
     return (dispatch, getState, socket) => {
-        dispatch(addUserSuccess(name));
-        dispatch(setUserSuccess(name));
+    
+        socket.send(JSON.stringify(addUser(name)));
+
+        dispatch(setUser(name));
+
         return Promise.resolve();
     };
 };
-export const addUserSuccess = name => ({
+export const addUser = name => ({
     type: types.ADD_USER,
-    id: '',
+    id: 0,
     name
 });
-export const setUserSuccess = name => ({
+export const setUser = name => ({
     type: types.SET_USER,
     name
 });

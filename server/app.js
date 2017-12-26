@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 1337 });
 
 const users = [];
-
+let messages = [];
 const broadcast = (data, ws) => {
     wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN && client !== ws) {
@@ -46,6 +46,7 @@ wss.on('connection', (ws) => {
     });
     ws.on('error', (error) => console.log(error));
     ws.on('close', (message) => {
+        //TODO: render 'has been disconnected message'
         const data = JSON.parse(message);
         users.splice(index, 1);
         broadcast({

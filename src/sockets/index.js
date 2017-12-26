@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import {addUser, populateUsersList} from '../actions/users';
+import {addUser, handleNewUser, populateUsersList} from '../actions/users';
 import {messageReceived} from '../actions/messages';
 
 export default class {
@@ -26,10 +26,7 @@ export default class {
         let {socket, userName} = this;
 
         socket.onopen = () => {
-            socket.send(JSON.stringify({
-                type: types.ADD_USER,
-                name: userName
-            }));
+            dispatch(handleNewUser(userName));
         };
 
         //Listen responses from a socket located on server

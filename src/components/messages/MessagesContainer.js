@@ -23,11 +23,12 @@ class MessagesContainer extends React.Component {
     }
 
     addMessage(e) {
-        this.props.actions.addMessage(e.target.value, this.props.author);
+        this.props.actions.handleNewMessage(e.target.value, this.props.author);
         this.setState({messageText: ''});
     }
 
     render() {
+        //throw new Error('Message list error test');
         return (
             <section id="main">
                 <MessagesList messages={this.props.messages}/>
