@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import {addUser, handleNewUser, populateUsersList} from '../actions/users';
+import {addUser, handleNewUser, populateUsersList, handleUserDisconnect} from '../actions/users';
 import {messageReceived} from '../actions/messages';
 
 export default class {
@@ -9,13 +9,8 @@ export default class {
 
         this.setEventListeners = this.setEventListeners.bind(this);
         this.getSocketInstance = this.getSocketInstance.bind(this);
-        window.onbeforeunload = () => {
-            this.socket.send(JSON.stringify({
-                type: types.REMOVE_USER,
-                name: this.userName
-            }));
-            this.socket.close();
-        };
+
+
     }
 
     getSocketInstance() {
@@ -36,6 +31,9 @@ export default class {
                 case types.ADD_MESSAGE:
                     dispatch(messageReceived(data.text, data.author));
                     break;
+                case types.USER_DISCONNECTED:
+                    dispatch(messageReceived(`User ${data.name} has been disconnected.`, 'System'));
+                    break;
                 case types.ADD_USER:
                     dispatch(addUser(data.name));
                     break;
@@ -45,6 +43,11 @@ export default class {
                 default:
                     break
             }
+        };
+
+        window.onbeforeunload = () => {
+            dispatch(handleUserDisconnect(userName));
+            socket.close();
         };
 
     }

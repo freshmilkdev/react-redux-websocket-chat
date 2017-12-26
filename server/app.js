@@ -37,9 +37,12 @@ wss.on('connection', (ws) => {
                     author: data.author
                 }, ws);
                 break;
-/*            case 'REMOVE_USER':
-                console.log(data);
-                break;*/
+            case 'USER_DISCONNECTED':
+                broadcast({
+                    type: 'USER_DISCONNECTED',
+                    name: data.name
+                }, ws);
+                break;
             default:
                 break;
         }
